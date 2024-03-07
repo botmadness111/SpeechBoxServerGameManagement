@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ServerGameManagementApplication {
-
+	//sdfsdfsd
 	public static void main(String[] args) {
 		SpringApplication.run(ServerGameManagementApplication.class, args);
 	}

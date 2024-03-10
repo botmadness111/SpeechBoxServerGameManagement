@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ServerGameManagementApplication {
-	//test commit
-	public static void main(String[] args) {
-		SpringApplication.run(ServerGameManagementApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ServerGameManagementApplication.class, args);
+    }
 
 }

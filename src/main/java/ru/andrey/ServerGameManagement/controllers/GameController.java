@@ -31,9 +31,10 @@ public class GameController {
     }
 
     @GetMapping("/start")
-    public ResponseEntity<List<Card>> start(@RequestParam("userId") int userId) {
+    public ResponseEntity<List<Card>> start(@RequestParam("userId") Integer userId) {
         User user = userService.findByIdWithCards(userId);
         List<Card> cards = user.getCards();
+
 
         jedis.del(String.valueOf(userId));
 
@@ -53,9 +54,9 @@ public class GameController {
     }
 
     @GetMapping("/result")
-    private ResponseEntity<Boolean> result(@RequestParam("input") String input, @RequestParam("userId") int userId) {
+    private ResponseEntity<Boolean> result(@RequestParam("userId") int userId, @RequestParam("input") String input) {
         String cardIdStr = jedis.lpop(String.valueOf(userId));
-        if (cardIdStr == null){
+        if (cardIdStr == null) {
             return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
         }
 
@@ -65,4 +66,18 @@ public class GameController {
         Boolean response = card.getTranslation().equals(input);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/get")
+    private ResponseEntity<Card> get(@RequestParam("userId") int userId) {
+        String cardIdStr = jedis.lindex(String.valueOf(userId), 0);
+        if (cardIdStr == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+        int cardId = Integer.parseInt(cardIdStr);
+        Card card = cardService.findById(cardId).orElseThrow(() -> new CardErrorException(123L, "Нет такой карты!!!"));
+
+        return new ResponseEntity<>(card, HttpStatus.OK);
+    }
+
 }

@@ -1,0 +1,12 @@
+volumes:
+  db_data:
+  db_data_test:
+  redis_data:
+
+services:
+  app2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"

@@ -32,6 +32,7 @@ public class GameController {
 
     @GetMapping("/start")
     public ResponseEntity<List<Card>> start(@RequestParam("userId") Integer userId) {
+        System.out.println("start game");
         User user = userService.findByIdWithCards(userId);
         List<Card> cards = user.getCards();
 

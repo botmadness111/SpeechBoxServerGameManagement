@@ -20,7 +20,7 @@ public class ServerGameManagementApplication {
 
     @Bean
     public Jedis jedis() {
-        return new Jedis("localhost", 6379);
+        return new Jedis("redis", 6379);
     }
 
 }
